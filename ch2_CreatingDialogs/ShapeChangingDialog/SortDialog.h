@@ -5,22 +5,26 @@
 
 #include <QDialog>//Inherit QDialog
 
+#if defined(__USING_HASA__)
 namespace Ui {
 class SortDialog;//Predeclare Ui::SortDialog which is genrated by uic using forms/SortDialog.ui
 }
-
-class SortDialog : public QDialog {
+#else 
+#include "ui_sortdialog.h"
+#endif
+class SortDialog : public QDialog, public Ui::SortDialog {
+  Q_OBJECT
  public:
   SortDialog(QWidget *parent = nullptr);
-  ~SortDialog() = default;
- private slots:
-  /**
-   * @brief Connect to signal textChanged(const QString &) from lineEdit.
-   *        It is correct that connects one parameter function to none parameter function
-   */
-  void on_lineEdit_textChanged();
- private:
+  ~SortDialog();
+
+  void setColumnRange(QChar first, QChar last);
+
+private slots:
+  void on_moreButton_toggled(bool bClicked);
+#if defined(__USING_HASA__)
   std::unique_ptr<Ui::SortDialog> ui;//Comboine with ui component object
+#endif
 };//class SortDialog
 
 #endif /* SORTDIALOG_H */

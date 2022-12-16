@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>SortDialog</class>
+ <widget class="QDialog" name="SortDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Sort</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -113,6 +113,9 @@
        <widget class="QPushButton" name="moreButton">
         <property name="text">
          <string>&amp;More</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -258,32 +261,32 @@
   <connection>
    <sender>okButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>SortDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>269</x>
+     <x>254</x>
      <y>47</y>
     </hint>
     <hint type="destinationlabel">
-     <x>85</x>
-     <y>119</y>
+     <x>63</x>
+     <y>125</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>cancleButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>SortDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>79</y>
+     <x>284</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
-     <x>169</x>
-     <y>131</y>
+     <x>320</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>
@@ -294,12 +297,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>267</x>
-     <y>153</y>
+     <x>264</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
-     <x>144</x>
-     <y>167</y>
+     <x>200</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>
@@ -310,12 +313,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>142</y>
+     <x>287</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>267</y>
+     <x>199</x>
+     <y>293</y>
     </hint>
    </hints>
   </connection>
