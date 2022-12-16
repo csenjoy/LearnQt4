@@ -22,6 +22,10 @@ GoToCellDialog::GoToCellDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Go
           this, SLOT(on_lineEdit_textChanged()));
 }
 
+QTextEdit *GoToCellDialog::lineEdit() const {
+  return ui->lineEdit;
+}
+
 void GoToCellDialog::on_lineEdit_textChanged() {
   ui->okButton->setEnabled(ui->lineEdit->hasAcceptableInput());
 }

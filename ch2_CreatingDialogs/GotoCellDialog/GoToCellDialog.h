@@ -3,7 +3,8 @@
 
 #include <memory>//Using std::unique_ptr
 
-#include <QDialog>//Inherit QDialog
+#include <QtWidgets/QDialog>//Inherit QDialog
+#include <QtWidgets/QTextEdit>
 
 namespace Ui {
 class GoToCellDialog;//Predeclare Ui::GoToCellDialog which is genrated by uic using forms/GoToCellDialog.ui
@@ -13,6 +14,8 @@ class GoToCellDialog : public QDialog {
  public:
   GoToCellDialog(QWidget *parent = nullptr);
   ~GoToCellDialog() = default;
+
+  QTextEdit *lineEdit() const;
  private slots:
   /**
    * @brief Connect to signal textChanged(const QString &) from lineEdit.
