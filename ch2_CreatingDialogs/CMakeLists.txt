@@ -2,4 +2,4 @@ project(ch2creatingdialogs)
 
 add_subdirectory(FindDialog)
 add_subdirectory(GoToCellDialog)
-#add_subdirectory(ShapeChangingDialog)
+add_subdirectory(ShapeChangingDialog)
