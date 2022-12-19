@@ -13,7 +13,7 @@ class GoToCellDialog;//Predeclare Ui::GoToCellDialog which is genrated by uic us
 class GoToCellDialog : public QDialog {
  public:
   GoToCellDialog(QWidget *parent = nullptr);
-  ~GoToCellDialog() = default;
+  ~GoToCellDialog();
 
   QLineEdit *lineEdit() const;
  private slots:

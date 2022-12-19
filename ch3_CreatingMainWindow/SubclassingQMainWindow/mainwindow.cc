@@ -14,6 +14,8 @@
 #include "SortDialog.h"
 #include "spreadsheet.h"
 
+#define __WITH_MULTIPLE_WINDOW__ 1
+
 MainWindow::MainWindow() {
   spreadsheet = new Spreadsheet;
   setCentralWidget(spreadsheet);
@@ -70,10 +72,15 @@ void MainWindow::createActions() {
     connect(recentFileActions[i], SIGNAL(triggered()), this, SLOT(openRecentFile()));
   }
 
+  closeAction = new QAction(tr("E&xit"), this);
+  closeAction->setShortcut(tr("Ctrl+W"));
+  closeAction->setStatusTip(tr("Exit the application"));
+  connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+
   exitAction = new QAction(tr("E&xit"), this);
   exitAction->setShortcut(tr("Ctrl+Q"));
   exitAction->setStatusTip(tr("Exit the application"));
-  connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+  connect(exitAction, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
   cutAction = new QAction(tr("&Cut"), this);
   cutAction->setIcon(QIcon(tr(":/images/cut.png")));
@@ -108,7 +115,7 @@ void MainWindow::createActions() {
   goToCellAction->setIcon(QIcon(tr(":/images/gotocell.png")));
   goToCellAction->setShortcut(tr("Ctrl+G"));
   goToCellAction->setStatusTip(tr("Go to Cell"));
-  connect(goToCellAction, SIGNAL(triggered()), this, SLOT(find()));
+  connect(goToCellAction, SIGNAL(triggered()), this, SLOT(goToCell()));
 
   selectRowAction = new QAction(tr("&Row"), this);
   selectRowAction->setStatusTip(tr("Select the row"));
@@ -127,6 +134,7 @@ void MainWindow::createActions() {
 
   sortAction = new QAction(tr("&Sort..."), this);
   sortAction->setStatusTip(tr("Sort"));
+  connect(sortAction, SIGNAL(triggered()), this, SLOT(sort()));
 
   showGridAction = new QAction(tr("&Show Grid"), this);
   showGridAction->setCheckable(true);
@@ -244,6 +252,10 @@ void MainWindow::spreadsheetModified() {
 
 void MainWindow::newFile() {
   if (okToContinue()) {
+#if defined(__WITH_MULTIPLE_WINDOW__)
+    MainWindow *mainWin = new MainWindow;
+    mainWin->show();
+#endif
     spreadsheet->clear();
     setCurrentFile("");
   }
@@ -314,6 +326,22 @@ bool MainWindow::saveAs() {
   if (fileName.isEmpty())
     return false;
   return saveFile(fileName);
+}
+
+void MainWindow::cut() {
+
+}
+
+void MainWindow::copy() {
+  
+}
+
+void MainWindow::paste() {
+
+}
+
+void MainWindow::del() {
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
@@ -405,8 +433,9 @@ void MainWindow::sort() {
   QTableWidgetSelectionRange range = spreadsheet->selectedRange();
   dialog.setColumnRange('A' + range.leftColumn(),
                         'A' + range.rightColumn());
-  if (dialog.exec())
-    spreadsheet->performSort(dialog.comparisonObject());
+  if (dialog.exec()) {
+    //spreadsheet->performSort(dialog.comparisonObject());
+  }
 }
 
 void MainWindow::about() {
@@ -417,4 +446,27 @@ void MainWindow::about() {
     "demonstrates QAction, QMainWindow, QMenuBar, "
     "QStatusBar, QTableWidget, QToolBar, and many other "
     "Qt classes."));
+}
+
+void MainWindow::writeSettings() {
+  QSettings settings("Software Inc.", "Spreadsheet");
+
+  settings.setValue("geometry", saveGeometry());
+  settings.setValue("recentFiles", recentFiles);
+  settings.setValue("showGrid", showGridAction->isCheckable());
+  settings.setValue("autoRecalc", autoRecalcAction->isCheckable());
+}
+
+void MainWindow::readSettings() {
+  QSettings settings("Software Inc.", "Spreadsheet");
+
+  restoreGeometry(settings.value("geometry").toByteArray());
+  recentFiles = settings.value("recentFiles").toStringList();
+  updateRecentFileActions();
+
+  bool showGrid = settings.value("showGrid", true).toBool();
+  showGridAction->setChecked(showGrid);
+
+  bool autoRecalc = settings.value("autoRecalc", true).toBool();
+  autoRecalcAction->setChecked(autoRecalc);
 }

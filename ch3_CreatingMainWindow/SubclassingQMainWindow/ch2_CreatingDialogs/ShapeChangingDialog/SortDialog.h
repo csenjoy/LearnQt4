@@ -3,7 +3,7 @@
 
 #include <memory>//Using std::unique_ptr
 
-#include <QDialog>//Inherit QDialog
+#include <QtWidgets/QDialog>//Inherit QDialog
 
 #if defined(__USING_HASA__)
 namespace Ui {

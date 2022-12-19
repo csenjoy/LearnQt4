@@ -1,7 +1,7 @@
 #ifndef FINDDIALOG_H
 #define FINDDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 class QLabel;
 class QLineEdit;

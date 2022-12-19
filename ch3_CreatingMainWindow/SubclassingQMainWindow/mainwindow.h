@@ -56,7 +56,6 @@ class MainWindow : public QMainWindow {
 
   enum { MaxRecentFiles = 5 };
   QAction *recentFileActions[MaxRecentFiles];
-  QAction *separatorAction;
 
   QMenu *fileMenu;
   QMenu *editMenu;
@@ -73,6 +72,7 @@ class MainWindow : public QMainWindow {
   QAction *saveAction;
   QAction *saveAsAction;
   QAction *separatorAction;
+  QAction *closeAction;
   QAction *exitAction;
   //edit menu
   QAction *cutAction;

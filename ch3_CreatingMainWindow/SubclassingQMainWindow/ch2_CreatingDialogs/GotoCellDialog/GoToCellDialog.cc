@@ -20,6 +20,17 @@ GoToCellDialog::GoToCellDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Go
 
   connect(ui->lineEdit, SIGNAL(textChanged(const QString &)),
           this, SLOT(on_lineEdit_textChanged()));
+
+  QHBoxLayout *mainLayout = new QHBoxLayout(this);
+  mainLayout->addWidget(ui->widget);
+  setLayout(mainLayout);
+
+  layout()->setSizeConstraint(QLayout::SetFixedSize);
+  //ui->mainVerticalLayout->setSizeConstraint(QLayout::SetFixedSize);
+}
+
+GoToCellDialog::~GoToCellDialog() {
+
 }
 
 QLineEdit *GoToCellDialog::lineEdit() const {
