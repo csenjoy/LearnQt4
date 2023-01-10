@@ -99,7 +99,6 @@ void IconEditor::paintEvent(QPaintEvent *event) {
       }
     }
   }
-
 }
 
 QRect IconEditor::pixelRect(int i, int j) const {
