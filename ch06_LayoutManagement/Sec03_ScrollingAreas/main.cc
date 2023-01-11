@@ -11,12 +11,6 @@ int main(int argc, char **argv) {
 
   QScrollArea scrollArea;
   scrollArea.setWidget(iconEditor);
-  
-  auto viewPortWidget = scrollArea.viewport();
-
-  QSize viewSize = viewPortWidget->size();
-
-  QSize widgetSize = iconEditor->size();
   scrollArea.viewport()->setBackgroundRole(QPalette::Dark);
   scrollArea.viewport()->setAutoFillBackground(true);
 
