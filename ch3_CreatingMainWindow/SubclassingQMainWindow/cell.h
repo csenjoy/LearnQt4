@@ -15,7 +15,7 @@ class Cell : public QTableWidgetItem {
   void setDirty();
  private:
   QVariant value() const;
-  QVariant evalExpresion(const QString &str, int &pos) const;
+  QVariant evalExpression(const QString &str, int &pos) const;
   QVariant evalTerm(const QString &str, int &pos) const;
   QVariant evalFactor(const QString &str, int &pos) const;
 
