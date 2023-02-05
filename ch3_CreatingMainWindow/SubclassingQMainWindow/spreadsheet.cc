@@ -4,6 +4,8 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtGui/QClipboard>
+#include <QtWidgets/QProgressDialog>
+#include <QtCore/QThread>
 
 #include "cell.h"
 
@@ -101,14 +103,32 @@ bool Spreadsheet::writeFile(const QString &fileName) {
   out.setVersion(QDataStream::Qt_5_5);
   out << quint32(MagicNumber);
 
+  //Add long time operator progress notify
+  QProgressDialog progress;
+  progress.setLabelText(tr("Saving file %1").arg(fileName));
+  progress.setRange(0, rowCount());
+  progress.setModal(true);
+
   QApplication::setOverrideCursor(Qt::WaitCursor);
   for (int row = 0; row < rowCount(); ++row) {
+    //update saving file progress
+    progress.setValue(row);
+    //proccessEvents
+    qApp->processEvents();
+    //user click canceled
+    if (progress.wasCanceled()) {
+      file.remove();
+      return false;
+    }
+
     for (int column = 0; column < ColumnCount; ++column) {
       QString str = formula(row, column);
       if (!str.isEmpty()) {
         out << quint16(row) << quint16(column) << str;
       }
     }
+    ////Test long time operator
+    //QThread::msleep(10);
   }
   QApplication::restoreOverrideCursor();
   return true;
